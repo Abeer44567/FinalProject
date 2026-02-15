@@ -1,0 +1,28 @@
+name: Java Maven CI
+
+# متى يعمل الـ Workflow
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1️⃣ تحميل المشروع من GitHub
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # 2️⃣ تثبيت Java
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    # 3️⃣ بناء المشروع وتشغيل الاختبارات
+    - name: Build and Test with Maven
+      run: mvn clean test
